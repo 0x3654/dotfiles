@@ -1,0 +1,47 @@
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host *
+    SetEnv TERM=xterm-256color
+    User root
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+
+Host micro
+    HostName micro.koi-uaru.ts.net
+    IdentityFile ~/.ssh/micro
+    IdentitiesOnly yes
+
+Host micro.koi-uaru.ts.net
+    HostName micro.koi-uaru.ts.net
+    IdentityFile ~/.ssh/micro
+    IdentitiesOnly yes
+
+# micro sd card boot partition
+Host sd
+    HostName 10.0.1.50
+    IdentitiesOnly yes
+
+Host nano
+    HostName nano.koi-uaru.ts.net
+    IdentitiesOnly yes
+    RequestTTY yes
+
+Host es
+    HostName es.0x3654.com
+    IdentityFile ~/.ssh/es_0x3654
+    IdentitiesOnly yes
+
+Host tr
+    HostName tr.0x3654.com
+
+Host ae
+    HostName ae.0x3654.com
+
+Host ae2
+    HostName ae2.0x3654.com
+
+Host ru2
+    HostName ru2.0x3654.com
+
+Host us2
+    HostName us2.0x3654.com

@@ -1,0 +1,22 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+
+10.0.1.119 ilo.ru
+
+# work opti
+10.100.7.68 dev-1c-01
+10.100.7.216 dev-1c-02
+10.100.7.217 dev-1c-03
+10.100.4.151 dev-1c-06
+10.100.7.225 srv-1c-dev83
+10.100.4.159 srv-1c-42
+10.100.7.230 tabel.hd555.info
+10.100.7.11 portal.hd555.info
+10.100.17.188 tko.hd555.info

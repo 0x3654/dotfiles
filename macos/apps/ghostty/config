@@ -1,0 +1,70 @@
+# docs: ghostty +show-config --default --docs | nvim
+# examples: https://github.com/search?q=path%3Aghostty%2Fconfig&type=code
+
+# ghostty +list-fonts
+font-size = 12
+
+command = /opt/homebrew/bin/bash
+shell-integration = bash
+shell-integration-features = title,ssh-env,ssh-terminfo
+
+# monospace — https://usgraphics.com/products/berkeley-mono
+font-family = "Berkeley Mono Variable"
+font-variation = wght=300
+font-variation = wdth=100
+font-family-bold = "Berkeley Mono Variable"
+font-variation-bold = wght=800
+
+# italics — https://github.com/subframe7536/maple-font
+font-family-italic = "Maple Mono"
+font-variation-italic = wght=200
+font-family-bold-italic = "Maple Mono"
+font-variation-bold-italic = wght=800
+
+# window
+confirm-close-surface = false
+window-padding-x = 8
+window-padding-y = 0,2
+window-padding-balance = true
+window-decoration = auto
+window-save-state = never
+split-divider-color = "#ffffff"
+
+window-title-font-family = "Berkeley Mono Variable"
+
+window-inherit-working-directory = false
+working-directory = home
+
+alpha-blending = linear-corrected
+
+macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = left
+
+background-opacity = 0.9
+background-blur-radius = 40
+
+# fixes issues with Ctrl-R
+term = xterm-256color
+
+macos-icon = custom
+
+# misc
+clipboard-paste-protection = false
+
+# ghostty +list-themes
+theme = Monokai Pro Ristretto
+
+mouse-hide-while-typing = true
+
+# quick-terminal
+quick-terminal-position = top
+gtk-quick-terminal-layer = overlay
+quick-terminal-keyboard-interactivity = exclusive
+
+# keymaps
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+keybind = shift+ctrl+left_bracket=previous_tab
+keybind = shift+ctrl+right_bracket=next_tab
+keybind = shift+ctrl+,=move_tab:-1
+keybind = shift+ctrl+.=move_tab:+1

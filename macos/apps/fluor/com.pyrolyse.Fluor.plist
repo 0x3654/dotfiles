@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppRules</key>
+	<array>
+		<dict>
+			<key>behavior</key>
+			<integer>2</integer>
+			<key>id</key>
+			<string>com.apple.Terminal</string>
+			<key>path</key>
+			<string>/System/Applications/Utilities/Terminal.app</string>
+		</dict>
+		<dict>
+			<key>behavior</key>
+			<integer>1</integer>
+			<key>id</key>
+			<string>com.atebits.Tweetie2</string>
+			<key>path</key>
+			<string>/Applications/X.app</string>
+		</dict>
+		<dict>
+			<key>behavior</key>
+			<integer>2</integer>
+			<key>id</key>
+			<string>com.microsoft.rdc.macos</string>
+			<key>path</key>
+			<string>/Applications/Windows App.app</string>
+		</dict>
+		<dict>
+			<key>behavior</key>
+			<integer>2</integer>
+			<key>id</key>
+			<string>com.transgui</string>
+			<key>path</key>
+			<string>/Applications/Transmission Remote GUI.app</string>
+		</dict>
+		<dict>
+			<key>behavior</key>
+			<integer>2</integer>
+			<key>id</key>
+			<string>com.mitchellh.ghostty</string>
+			<key>path</key>
+			<string>/Applications/Ghostty.app</string>
+		</dict>
+	</array>
+	<key>DefaultKeyboardState</key>
+	<integer>0</integer>
+	<key>ShowAllProcesses</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,76 @@
+{
+    "workbench.colorTheme": "Monokai Pro (Filter Ristretto)",
+    "workbench.preferredDarkColorTheme": "Monokai Pro (Filter Ristretto)",
+    "workbench.preferredLightColorTheme": "Monokai Pro Light",
+    "workbench.preferredHighContrastLightColorTheme": "Monokai Pro (Filter Ristretto)",
+    "workbench.iconTheme": "Monokai Pro (Filter Ristretto) Icons",
+    "editor.minimap.enabled": false,
+    "editor.wordBasedSuggestions": "off",
+    "editor.largeFileOptimizations": false,
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveWorkspaceFilesOnly": true,
+    "files.associations": {
+        "*.yml": "ansible"
+    },
+    "excalidraw.theme": "auto",
+    "markdown.preview.typographer": true,
+    "remote.SSH.remotePlatform": {
+        "nano": "linux",
+        "micro": "linux",
+        "ae": "linux",
+        "ae2": "linux",
+        "es": "linux",
+        "tr": "linux",
+        "us2": "linux"
+    },
+    "remote.autoForwardPortsSource": "hybrid",
+    "containers.containers.label": "ContainerName",
+    "containers.containers.description": ["Status"],
+    "containers.containers.sortBy": "CreatedTime",
+    "git.confirmSync": false,
+    "git.ignoreRebaseWarning": true,
+    "window.systemColorTheme": "dark",
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.disableLoginPrompt": true,
+    "claudeCode.environmentVariables": [],
+    "amp.url": "https://ampcode.com/",
+    "amp.tab.enabled": true,
+    "cursor.cpp.disabledLanguages": ["plaintext"],
+    "ansibleVault.keyfile": "/Users/m/code/ansible/.vault",
+    "redhat.telemetry.enabled": true,
+    "explorer.confirmPasteNative": false,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "highlight.regexes": {
+        "((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *TODO(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+            "filterFileRegex": ".*(?<!CHANGELOG.md)$",
+            "decorations": [
+                {"overviewRulerColor": "#ffcc00", "backgroundColor": "#ffcc00", "color": "#1f1f1f", "fontWeight": "bold"},
+                {"backgroundColor": "#ffcc00", "color": "#1f1f1f"}
+            ]
+        },
+        "((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:FIXME|FIX|BUG|UGLY|DEBUG|HACK)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+            "filterFileRegex": ".*(?<!CHANGELOG.md)$",
+            "decorations": [
+                {"overviewRulerColor": "#cc0000", "backgroundColor": "#cc0000", "color": "#1f1f1f", "fontWeight": "bold"},
+                {"backgroundColor": "#cc0000", "color": "#1f1f1f"}
+            ]
+        },
+        "((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:REVIEW|OPTIMIZE|TSC)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+            "filterFileRegex": ".*(?<!CHANGELOG.md)$",
+            "decorations": [
+                {"overviewRulerColor": "#00ccff", "backgroundColor": "#00ccff", "color": "#1f1f1f", "fontWeight": "bold"},
+                {"backgroundColor": "#00ccff", "color": "#1f1f1f"}
+            ]
+        },
+        "((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:IDEA)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+            "filterFileRegex": ".*(?<!CHANGELOG.md)$",
+            "decorations": [
+                {"overviewRulerColor": "#cc00cc", "backgroundColor": "#cc00cc", "color": "#1f1f1f", "fontWeight": "bold"},
+                {"backgroundColor": "#cc00cc", "color": "#1f1f1f"}
+            ]
+        }
+    }
+}
