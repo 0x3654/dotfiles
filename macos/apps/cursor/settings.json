@@ -11,7 +11,7 @@
     "files.autoSave": "afterDelay",
     "files.autoSaveWorkspaceFilesOnly": true,
     "files.associations": {
-        "*.yml": "ansible"
+        "*.yml": "ansible",
     },
     "excalidraw.theme": "auto",
     "markdown.preview.typographer": true,
@@ -72,5 +72,25 @@
                 {"backgroundColor": "#cc00cc", "color": "#1f1f1f"}
             ]
         }
-    }
+    },
+    "codesnap-plus.transparentBackground": true,
+    "window.autoDetectColorScheme": false,
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+    "makefile.configureOnOpen": true,
+    "xml.symbols.maxItemsComputed": 9990000,
+    "yaml.disableSchemaDetection": [
+        "**/.github/workflows/*.yml",
+        "**/.github/workflows/*.yaml",
+        "**/.gitea/workflows/*.yml",
+        "**/.gitea/workflows/*.yaml",
+        "**/.forgejo/workflows/*.yml",
+        "**/.forgejo/workflows/*.yaml"
+    ],
+    "window.density.editorTabHeight": "compact",
+    "parallels-desktop.extension.path": "/Users/m/.parallels-desktop-vscode",
+    "parallels-desktop.brew.path": "/opt/homebrew/bin/brew",
+    "parallels-desktop.prlctl.path": "/usr/local/bin/prlctl",
+    "parallels-desktop.git.path": "/opt/homebrew/bin/git",
+    "parallels-desktop.devops-service.path": "/Users/m/.parallels-desktop-vscode/tools/prldevops",
+    "workbench.editor.editorActionsLocation": "titleBar"
 }
