@@ -39,7 +39,6 @@ export NVM_DIR="$HOME/.nvm"
 # ── Ansible ───────────────────────────────────────────────────────────────────
 
 export ANSIBLE_HOME="$HOME/.ansible"
-export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault
 alias ansible-lint='ANSIBLE_HOME=$HOME/.ansible ansible-lint'
 
 # ── ls ────────────────────────────────────────────────────────────────────────
