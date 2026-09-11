@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/m/.docker/bin"
+# End of Docker Desktop section.
+
 # ~/.bash_profile: sourced by bash for login shells.
 
 [[ -r ~/.bashrc ]] && . ~/.bashrc
@@ -16,25 +20,31 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     function p  { ping -a $1 | awk '{ gsub("time=",""); gsub("icmp_seq=",""); print $5 ": " $7 " " $8 }'; }
     function pi { ping -a $1 | awk '{ gsub("time=",""); gsub("icmp_seq=",""); print "ip " $4 " " $5 ": " $7 " " $8 }'; }
 
-    function tp() {
-        gping -n 1 -b 15 --clear \
-            google.ru -c red \
-            google.ge -c red \
-            google.com -c light-red \
-            es.0x3654.com -c magenta \
-            ru2.0x3654.com -c magenta \
-            ae.0x3654.com -c magenta \
-            ae2.0x3654.com -c magenta \
-            us2.0x3654.com -c magenta
-    }
-
-    function tpl() {
-        gping -n 2 -b 15 --clear \
-            10.0.1.10 -c green \
-            10.0.1.51 -c red \
-            10.0.1.56 -c magenta \
-            192.168.192.1 -c yellow \
-            micro -c red \
-            nano -c red
-    }
+function tp () {
+    gping -n 1 -b 15 --clear \
+        google.ru -c red \
+        google.ge -c red \
+        google.com -c light-red \
+        remote.opti-com.ru -c green \
+        access.opti-com.ru -c light-green \
+        tabel.hd555.info -c green \
+        dev-1c-03 -c yellow \
+        dev-1c-02 -c yellow \
+        dev-1c-06 -c light-yellow \
+        es.0x3654.com -c magenta \
+        ru2.0x3654.com -c magenta \
+        ae.0x3654.com -c magenta \
+        ae2.0x3654.com -c magenta \
+        us.0x3654.com -c magenta \
+        us2.0x3654.com -c magenta;
+}
+function tpl () {
+    gping -n 2 -b 15 --clear \
+        10.0.1.10 -c green \
+        10.0.1.51 -c red \
+        10.0.1.56 -c magenta \
+        192.168.192.1 -c yellow \
+        micro -c red \
+        nano -c red;
+}
 fi

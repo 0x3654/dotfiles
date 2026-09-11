@@ -1,9 +1,9 @@
 {
-    "workbench.colorTheme": "Monokai Pro (Filter Ristretto)",
+    "workbench.colorTheme": "Monokai Pro Light",
     "workbench.preferredDarkColorTheme": "Monokai Pro (Filter Ristretto)",
     "workbench.preferredLightColorTheme": "Monokai Pro Light",
     "workbench.preferredHighContrastLightColorTheme": "Monokai Pro (Filter Ristretto)",
-    "workbench.iconTheme": "Monokai Pro (Filter Ristretto) Icons",
+    "workbench.iconTheme": "Monokai Icons",
     "editor.minimap.enabled": false,
     "editor.wordBasedSuggestions": "off",
     "editor.largeFileOptimizations": false,
@@ -13,7 +13,6 @@
     "files.associations": {
         "*.yml": "ansible",
     },
-    "excalidraw.theme": "auto",
     "markdown.preview.typographer": true,
     "remote.SSH.remotePlatform": {
         "nano": "linux",
@@ -22,7 +21,9 @@
         "ae2": "linux",
         "es": "linux",
         "tr": "linux",
-        "us2": "linux"
+        "us2": "linux",
+        "citrus": "macOS",
+        "moro": "macOS"
     },
     "remote.autoForwardPortsSource": "hybrid",
     "containers.containers.label": "ContainerName",
@@ -30,7 +31,6 @@
     "containers.containers.sortBy": "CreatedTime",
     "git.confirmSync": false,
     "git.ignoreRebaseWarning": true,
-    "window.systemColorTheme": "dark",
     "claudeCode.preferredLocation": "panel",
     "claudeCode.disableLoginPrompt": true,
     "claudeCode.environmentVariables": [],
@@ -74,7 +74,7 @@
         }
     },
     "codesnap-plus.transparentBackground": true,
-    "window.autoDetectColorScheme": false,
+    "window.autoDetectColorScheme": true,
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "makefile.configureOnOpen": true,
     "xml.symbols.maxItemsComputed": 9990000,
@@ -92,5 +92,6 @@
     "parallels-desktop.prlctl.path": "/usr/local/bin/prlctl",
     "parallels-desktop.git.path": "/opt/homebrew/bin/git",
     "parallels-desktop.devops-service.path": "/Users/m/.parallels-desktop-vscode/tools/prldevops",
-    "workbench.editor.editorActionsLocation": "titleBar"
+    "workbench.editor.editorActionsLocation": "titleBar",
+    "excalidraw.theme": "auto"
 }

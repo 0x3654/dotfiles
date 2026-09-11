@@ -26,6 +26,10 @@ confirm-close-surface = false
 window-padding-x = 8
 window-padding-y = 0,2
 window-padding-balance = true
+# бесшовные края: паддинги/поля дорисовываются клетками терминала,
+# а хром окна всегда тёмный (квик-терминал не получает авто-тему от transparent)
+window-padding-color = extend
+window-theme = dark
 window-decoration = auto
 window-save-state = never
 split-divider-color = "#ffffff"

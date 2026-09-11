@@ -22,6 +22,7 @@ if [[ "$OS" == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
     export PATH="$PATH:$HOME/.lmstudio/bin"
     export PATH="$PATH:$HOME/.opencode/bin"
+    export PATH="$PATH:$HOME/.darkbloom/bin"
 elif command -v brew &>/dev/null; then
     eval "$(brew shellenv)"
 fi
@@ -32,14 +33,18 @@ command -v mcfly &>/dev/null && eval "$(mcfly init bash)"
 
 # ── NVM ───────────────────────────────────────────────────────────────────────
 
+if [[ "$OS" == "Darwin" ]] then
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
 
 # ── Ansible ───────────────────────────────────────────────────────────────────
 
+if [[ "$OS" == "Darwin" ]] then
 export ANSIBLE_HOME="$HOME/.ansible"
 alias ansible-lint='ANSIBLE_HOME=$HOME/.ansible ansible-lint'
+fi
 
 # ── ls ────────────────────────────────────────────────────────────────────────
 
@@ -163,7 +168,10 @@ if [[ "$OS" == "Darwin" ]]; then
             --rm -it
             --name "$container_name"
             --label "com.centurylinklabs.watchtower.enable=false"
-            -v "$HOME/code/config:/.config/jesseduffield/lazydocker"
+            # CONFIG_DIR: lazydocker в scratch-образе без HOME не видит XDG-пути,
+            # поэтому монтируем в /config и указываем его явно (app_config.go:528)
+            -v "$HOME/code/config/lazydocker:/config"
+            -e CONFIG_DIR=/config
             -v ~/.docker:/root/.docker:ro
             --tmpfs /tmp
         )
@@ -179,11 +187,118 @@ if [[ "$OS" == "Darwin" ]]; then
         echo "Closed lazydocker for: $context"
     }
 
+    # Патченый lazydocker (ветка selected-line-contrast в ~/code/lazydocker,
+    # фикс контраста выбранной строки, jesseduffield/lazydocker#543).
+    # Образ ленивый: не пересобирается сам. Пересборка после правок ветки:
+    #   (cd ~/code/lazydocker && git checkout selected-line-contrast && \
+    #    sed 's/FROM scratch/FROM alpine:3.20\nRUN apk add --no-cache openssh-client/' Dockerfile | \
+    #    docker buildx build --platform linux/arm64 -t lazydocker-patched:latest -f - .)
+    lzdp() {
+        local context="${1:-desktop-linux}"
+        if ! docker image inspect lazydocker-patched:latest &>/dev/null; then
+            echo "Нет образа lazydocker-patched:latest — собери (рецепт в комментарии выше функции)" >&2
+            return 1
+        fi
+        if ! docker context inspect "$context" >/dev/null 2>&1; then
+            echo "Error: Docker context '$context' not found" >&2
+            docker context ls >&2
+            return 1
+        fi
+        local docker_host
+        docker_host=$(docker context inspect "$context" --format '{{.Endpoints.docker.Host}}')
+        echo "Starting lazydocker (patched) for: $context ($docker_host)"
+        docker rm -f "lazydocker-patched-$context" 2>/dev/null || true
+        local docker_args=(
+            --rm -it
+            --name "lazydocker-patched-$context"
+            --label "com.centurylinklabs.watchtower.enable=false"
+            -v "$HOME/code/config/lazydocker:/config"
+            -e CONFIG_DIR=/config
+            -v ~/.docker:/root/.docker:ro
+            --tmpfs /tmp
+        )
+        if [[ "$docker_host" == ssh://* ]]; then
+            docker_args+=(-v ~/.ssh:/root/.ssh:ro -e DOCKER_HOST="$docker_host")
+        else
+            docker_args+=(-v "${docker_host#unix://}:/var/run/docker.sock" -e DOCKER_HOST="unix:///var/run/docker.sock")
+        fi
+        docker run "${docker_args[@]}" lazydocker-patched:latest
+    }
+
+    # lazydocker с reverse-темой (инверсная выбранная строка) на отдельном конфиге —
+    # общий ~/code/config/lazydocker не трогается. Образ тот же патченый:
+    # reverse-guard рендерит его идентично оригиналу (легаси-путь).
+    lzdr() {
+        local context="${1:-desktop-linux}"
+        local cfg_dir="$HOME/code/config/lazydocker-reverse"
+        if [ ! -f "$cfg_dir/config.yml" ]; then
+            mkdir -p "$cfg_dir"
+            printf 'gui:\n  theme:\n    selectedLineBgColor:\n      - reverse\n' > "$cfg_dir/config.yml"
+            echo "Создан $cfg_dir/config.yml (reverse-тема)"
+        fi
+        if ! docker image inspect lazydocker-patched:latest &>/dev/null; then
+            echo "Нет образа lazydocker-patched:latest — собери (рецепт над lzdp)" >&2
+            return 1
+        fi
+        if ! docker context inspect "$context" >/dev/null 2>&1; then
+            echo "Error: Docker context '$context' not found" >&2
+            docker context ls >&2
+            return 1
+        fi
+        local docker_host
+        docker_host=$(docker context inspect "$context" --format '{{.Endpoints.docker.Host}}')
+        echo "Starting lazydocker (reverse) for: $context ($docker_host)"
+        docker rm -f "lazydocker-reverse-$context" 2>/dev/null || true
+        local docker_args=(
+            --rm -it
+            --name "lazydocker-reverse-$context"
+            --label "com.centurylinklabs.watchtower.enable=false"
+            -v "$cfg_dir:/config"
+            -e CONFIG_DIR=/config
+            -v ~/.docker:/root/.docker:ro
+            --tmpfs /tmp
+        )
+        if [[ "$docker_host" == ssh://* ]]; then
+            docker_args+=(-v ~/.ssh:/root/.ssh:ro -e DOCKER_HOST="$docker_host")
+        else
+            docker_args+=(-v "${docker_host#unix://}:/var/run/docker.sock" -e DOCKER_HOST="unix:///var/run/docker.sock")
+        fi
+        docker run "${docker_args[@]}" lazydocker-patched:latest
+    }
+
     tweets() {
         ssh us2 "ls -lt /server/dumbtests/tweet_data/ | tail -n +2 | awk '{print \$6, \$7, \$8, \$9}' | sed 's/.json//'"
     }
     tweets-watch() {
         ssh -t us2 "watch -n 5 'ls -lt /server/dumbtests/tweet_data/ | tail -n +2 | awk \"{print \\\$6, \\\$7, \\\$8, \\\$9}\" | sed \"s/.json//\"'"
+    }
+
+    dbs() {
+        # DARKBLOOM_NO_UPDATE_CHECK: без update-баннера status не пишет в stdout
+        # через FileHandle и не падает SIGABRT'ом при обрыве пайпа (краш-диалоги
+        # "quit unexpectedly" 2026-08-25, UpdateBanner.printBanner -> writeData:)
+        DARKBLOOM_NO_UPDATE_CHECK=1 ~/.darkbloom/bin/darkbloom status | awk '
+        function trim(s){gsub(/^ +| +$/,"",s);return s}
+        /^Provider:/         {sub(/^Provider: */,""); p=$0}
+        /^Daemon:/           {sub(/^Daemon: */,""); d=$0}
+        /^Trust:/            {sub(/^Trust: */,""); t=$0; if((getline L)>0){n=trim(L); sub(/^→ */,"",n)}}
+        /^Requests served:/  {split($0,Q,"|"); r=trim(Q[1]); sub(/^Requests served: */,"",r); k=trim(Q[2]); sub(/^tokens: */,"",k)}
+        /^ +[^ ].*: kv=/     {if(c<3){L=$0; sub(/^ +/,"",L); split(L,A,": kv="); mods[++c]=A[1]"  (kv="A[2]")"}}
+        END{
+          print "● " p " · " t " · " d
+          if(n!="") print "  " n
+          if(c>0){print "Models:"; for(i=1;i<=c;i++) print "  " mods[i]} else print "Models: none loaded"
+          print "Traffic: " r " req | " k " tokens"
+        }'
+    }
+    dbsw() {
+        local n="${1:-10}"
+        while true; do
+            clear
+            dbs
+            printf '\n\033[2m── refresh %ss · ^C to exit ──\033[0m\n' "$n"
+            sleep "$n"
+        done
     }
 fi
 
@@ -237,6 +352,12 @@ case "$TERM" in
 xterm*|rxvt*) PS1="\[\e]0;\u@\h: \w\a\]$PS1" ;;
 esac
 
+# ── LM Studio proxy ──────────────────────────────────────────────────────────
+
+alias lm-proxy='uvx --from "litellm[proxy]" litellm --config ~/.claude/litellm_config.yaml --port 4000'
+
 # ── local overrides ───────────────────────────────────────────────────────────
 
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
+
+alias lz1c='cd "/Users/m/1c RAS" && ./1cras'
