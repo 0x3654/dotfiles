@@ -77,6 +77,7 @@
     "window.autoDetectColorScheme": true,
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "makefile.configureOnOpen": true,
+    "language-1c-bsl.languageServerJavaOpts": "-Xmx1g",
     "xml.symbols.maxItemsComputed": 9990000,
     "yaml.disableSchemaDetection": [
         "**/.github/workflows/*.yml",
@@ -94,4 +95,19 @@
     "parallels-desktop.devops-service.path": "/Users/m/.parallels-desktop-vscode/tools/prldevops",
     "workbench.editor.editorActionsLocation": "titleBar",
     "excalidraw.theme": "auto"
+,
+"zaiCursorLimit.apiKey": "4dae48fcfdd54e6eb3e000b02803b025.bF09YLw2Rfav8f2T",
+"zaiCursorLimit.refreshSec": 30,
+"zaiCursorLimit.redTintLight": "#C65353",
+"workbench.settings.applyToAllProfiles": [
+    "zaiCursorLimit.redTintLight"
+],
+"zaiCursorLimit.redTextLight": "#C65353",
+"zaiCursorLimit.redTintDark": "#C65353",
+"zaiCursorLimit.greenTintLight": "#206035",
+"claudeCode.archiveInactiveSessions": 0,
+"codesnap-plus.realLineNumbers": true,
+"codesnap-plus.showWindowTitle": true,
+"zaiCursorLimit.statusbarMetric": "5h",
+"settingsSync.ignoredExtensions": []
 }
