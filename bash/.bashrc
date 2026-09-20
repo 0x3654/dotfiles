@@ -95,7 +95,6 @@ fi
 
 if [[ "$OS" == "Darwin" ]]; then
     alias mtop='TERM=xterm-256color sudo mactop'
-    command -v net-peek &>/dev/null && alias npk='sudo net-peek'
 
     lzd() {
         local context="${1:-desktop-linux}"
