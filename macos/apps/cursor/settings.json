@@ -4,6 +4,7 @@
     "workbench.preferredLightColorTheme": "Monokai Pro Light",
     "workbench.preferredHighContrastLightColorTheme": "Monokai Pro (Filter Ristretto)",
     "workbench.iconTheme": "Monokai Icons",
+    "workbench.editor.enablePreview": false,
     "editor.minimap.enabled": false,
     "editor.wordBasedSuggestions": "off",
     "editor.largeFileOptimizations": false,
