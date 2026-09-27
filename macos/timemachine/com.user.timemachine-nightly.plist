@@ -2,10 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Ночные копии Time Machine на micro: 02:30 + ретрай 03:20 (26.09 первая
-         попытка тихо умерла на монтировании холодной шары; при живом бэкапе второй
-         слот безвреден — backupd игнорирует повторный старт). Автобэкапы выключены
-         (tmutil disable, см. tasks/macos-timemachine.yml) — днём сеть не грузится.
+    <!-- Ночные копии Time Machine на micro: 02:30 + ретрай 03:20. Без флага auto:
+         auto-режим уважает AutoBackupInterval и молча скипает копию, если
+         предыдущая моложе интервала (BACKUP_DELAYED_NOT_ENOUGH_ELAPSED_TIME,
+         поймано 27.09 после ручной копии менее 24ч назад). Автобэкапы выключены
+         (tmutil disable, см. tasks/macos-timemachine.yml), днём сеть не грузится.
          Если мак проспал оба слота, launchd доиграет запуск при пробуждении. -->
     <key>Label</key>
     <string>com.user.timemachine-nightly</string>
@@ -13,7 +14,6 @@
     <array>
         <string>/usr/bin/tmutil</string>
         <string>startbackup</string>
-        <string>--auto</string>
     </array>
     <key>StartCalendarInterval</key>
     <array>
