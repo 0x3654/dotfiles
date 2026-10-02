@@ -2,12 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Ночные копии Time Machine на micro: 02:30 + ретрай 03:20. Без флага auto:
+    <!-- Ночные копии Time Machine на micro: 01:00 + ретрай 02:30. Без флага auto:
          auto-режим уважает AutoBackupInterval и молча скипает копию, если
          предыдущая моложе интервала (BACKUP_DELAYED_NOT_ENOUGH_ELAPSED_TIME,
-         поймано 27.09 после ручной копии менее 24ч назад). Автобэкапы выключены
-         (tmutil disable, см. tasks/macos-timemachine.yml), днём сеть не грузится.
-         Если мак проспал оба слота, launchd доиграет запуск при пробуждении. -->
+         поймано 27.09). Слоты уведены от утреннего окна ~05:45-06:05, где
+         роутер/LAN рвёт соединения (DHCP-фриз 02.10, DISCONNECTED 27.09/02.10);
+         медленная ночная подготовка moro 1.5-2.5ч должна успевать до него.
+         Автобэкапы выключены (tmutil disable, см. tasks/macos-timemachine.yml),
+         днём сеть не грузится. Если мак проспал оба слота, launchd доиграет
+         запуск при пробуждении. -->
     <key>Label</key>
     <string>com.user.timemachine-nightly</string>
     <key>ProgramArguments</key>
@@ -19,15 +22,15 @@
     <array>
         <dict>
             <key>Hour</key>
-            <integer>2</integer>
+            <integer>1</integer>
             <key>Minute</key>
-            <integer>30</integer>
+            <integer>0</integer>
         </dict>
         <dict>
             <key>Hour</key>
-            <integer>3</integer>
+            <integer>2</integer>
             <key>Minute</key>
-            <integer>20</integer>
+            <integer>30</integer>
         </dict>
     </array>
 </dict>
