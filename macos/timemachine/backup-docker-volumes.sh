@@ -8,7 +8,9 @@ set -eu
 
 DEST="${HOME}/backups/docker-volumes"
 KEEP=7
-SKIP_RE='gomod|gocache|playwright|dev-cache|_data$'
+SKIP_RE='gomod|gocache|playwright|dev-cache|_data$|pg1c-data$'
+# pg1c-data$ — живой PG стенда дампится nightly в ~/code/_bd_backup
+# (pg_dump в контейнере), тар живого PG неконсистентен и избыточен
 
 mkdir -p "$DEST"
 STAMP=$(date +%F)
