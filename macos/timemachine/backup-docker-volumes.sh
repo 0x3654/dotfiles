@@ -6,6 +6,10 @@
 # pg1c НЕ дампится тут — его дампы уже идут в ~/code/_bd_backup (pg_dump в контейнере).
 set -eu
 
+# launchd-агентам достаётся куцый PATH (/usr/bin:/bin:...) — docker в /usr/local/bin,
+# без этого объём списка томов пустой и скрипт молча выходит с rc=0 (поймано 05.10)
+PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+
 DEST="${HOME}/backups/docker-volumes"
 KEEP=7
 SKIP_RE='gomod|gocache|playwright|dev-cache|_data$|pg1c-data$'
