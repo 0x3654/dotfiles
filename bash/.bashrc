@@ -360,4 +360,4 @@ alias lm-proxy='uvx --from "litellm[proxy]" litellm --config ~/.claude/litellm_c
 
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
-alias lz1c='cd "/Users/m/1c RAS" && ./lazy1c'
+alias lz1c='/Users/m/code/lz1c/lazy1c -config /Users/m/code/lz1c/lazy1c.toml'

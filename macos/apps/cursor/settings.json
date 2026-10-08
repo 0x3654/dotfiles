@@ -1,5 +1,5 @@
 {
-    "workbench.colorTheme": "Monokai Pro Light",
+    "workbench.colorTheme": "Monokai Pro (Filter Ristretto)",
     "workbench.preferredDarkColorTheme": "Monokai Pro (Filter Ristretto)",
     "workbench.preferredLightColorTheme": "Monokai Pro Light",
     "workbench.preferredHighContrastLightColorTheme": "Monokai Pro (Filter Ristretto)",
@@ -110,5 +110,9 @@
 "codesnap-plus.realLineNumbers": true,
 "codesnap-plus.showWindowTitle": true,
 "zaiCursorLimit.statusbarMetric": "5h",
-"settingsSync.ignoredExtensions": []
+"settingsSync.ignoredExtensions": [],
+"markdown-preview-enhanced.codeBlockTheme": "auto.css",
+"markdown-preview-enhanced.previewTheme": "vscode.css",
+"markdown-preview-enhanced.alwaysShowBacklinksInPreview": true,
+"markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true
 }
