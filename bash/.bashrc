@@ -189,15 +189,20 @@ if [[ "$OS" == "Darwin" ]]; then
 
     # Патченый lazydocker (ветка selected-line-contrast в ~/code/lazydocker,
     # фикс контраста выбранной строки, jesseduffield/lazydocker#543).
-    # Образ ленивый: не пересобирается сам. Пересборка после правок ветки:
+    # Если образа нет — собирается автоматически. Принудительная пересборка после правок ветки:
     #   (cd ~/code/lazydocker && git checkout selected-line-contrast && \
     #    sed 's/FROM scratch/FROM alpine:3.20\nRUN apk add --no-cache openssh-client/' Dockerfile | \
     #    docker buildx build --platform linux/arm64 -t lazydocker-patched:latest -f - .)
     lzdp() {
         local context="${1:-desktop-linux}"
         if ! docker image inspect lazydocker-patched:latest &>/dev/null; then
-            echo "Нет образа lazydocker-patched:latest — собери (рецепт в комментарии выше функции)" >&2
-            return 1
+            echo "Нет образа lazydocker-patched:latest — собираю из ветки selected-line-contrast..."
+            (
+                cd "$HOME/code/lazydocker" || exit 1
+                git checkout -q selected-line-contrast || exit 1
+                sed 's/FROM scratch/FROM alpine:3.20\nRUN apk add --no-cache openssh-client/' Dockerfile | \
+                    docker buildx build --platform linux/arm64 -t lazydocker-patched:latest -f - .
+            ) || { echo "Сборка lazydocker-patched не удалась" >&2; return 1; }
         fi
         if ! docker context inspect "$context" >/dev/null 2>&1; then
             echo "Error: Docker context '$context' not found" >&2
@@ -213,47 +218,6 @@ if [[ "$OS" == "Darwin" ]]; then
             --name "lazydocker-patched-$context"
             --label "com.centurylinklabs.watchtower.enable=false"
             -v "$HOME/code/config/lazydocker:/config"
-            -e CONFIG_DIR=/config
-            -v ~/.docker:/root/.docker:ro
-            --tmpfs /tmp
-        )
-        if [[ "$docker_host" == ssh://* ]]; then
-            docker_args+=(-v ~/.ssh:/root/.ssh:ro -e DOCKER_HOST="$docker_host")
-        else
-            docker_args+=(-v "${docker_host#unix://}:/var/run/docker.sock" -e DOCKER_HOST="unix:///var/run/docker.sock")
-        fi
-        docker run "${docker_args[@]}" lazydocker-patched:latest
-    }
-
-    # lazydocker с reverse-темой (инверсная выбранная строка) на отдельном конфиге —
-    # общий ~/code/config/lazydocker не трогается. Образ тот же патченый:
-    # reverse-guard рендерит его идентично оригиналу (легаси-путь).
-    lzdr() {
-        local context="${1:-desktop-linux}"
-        local cfg_dir="$HOME/code/config/lazydocker-reverse"
-        if [ ! -f "$cfg_dir/config.yml" ]; then
-            mkdir -p "$cfg_dir"
-            printf 'gui:\n  theme:\n    selectedLineBgColor:\n      - reverse\n' > "$cfg_dir/config.yml"
-            echo "Создан $cfg_dir/config.yml (reverse-тема)"
-        fi
-        if ! docker image inspect lazydocker-patched:latest &>/dev/null; then
-            echo "Нет образа lazydocker-patched:latest — собери (рецепт над lzdp)" >&2
-            return 1
-        fi
-        if ! docker context inspect "$context" >/dev/null 2>&1; then
-            echo "Error: Docker context '$context' not found" >&2
-            docker context ls >&2
-            return 1
-        fi
-        local docker_host
-        docker_host=$(docker context inspect "$context" --format '{{.Endpoints.docker.Host}}')
-        echo "Starting lazydocker (reverse) for: $context ($docker_host)"
-        docker rm -f "lazydocker-reverse-$context" 2>/dev/null || true
-        local docker_args=(
-            --rm -it
-            --name "lazydocker-reverse-$context"
-            --label "com.centurylinklabs.watchtower.enable=false"
-            -v "$cfg_dir:/config"
             -e CONFIG_DIR=/config
             -v ~/.docker:/root/.docker:ro
             --tmpfs /tmp
@@ -361,3 +325,5 @@ alias lm-proxy='uvx --from "litellm[proxy]" litellm --config ~/.claude/litellm_c
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
 alias lz1c='/Users/m/code/lz1c/lazy1c -config /Users/m/code/lz1c/lazy1c.toml'
+
+alias qbt='qbt-tui --url http://10.0.1.51:8085 --username admin --password micro-qb-0726-Koi'
