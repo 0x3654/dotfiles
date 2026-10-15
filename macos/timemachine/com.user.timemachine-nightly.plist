@@ -15,8 +15,8 @@
     <string>com.user.timemachine-nightly</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/tmutil</string>
-        <string>startbackup</string>
+        <string>/bin/sh</string>
+        <string>/usr/local/bin/tm-nightly-run.sh</string>
     </array>
     <key>StartCalendarInterval</key>
     <array>
