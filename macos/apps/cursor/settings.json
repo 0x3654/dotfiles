@@ -78,6 +78,8 @@
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "makefile.configureOnOpen": true,
     "language-1c-bsl.languageServerJavaOpts": "-Xmx1g",
+    "language-1c-bsl.languageServerEnabled": false,
+    "language-1c-bsl.downloadLanguageServer": false,
     "xml.symbols.maxItemsComputed": 9990000,
     "yaml.disableSchemaDetection": [
         "**/.github/workflows/*.yml",

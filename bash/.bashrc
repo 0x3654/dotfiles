@@ -127,11 +127,10 @@ if [[ "$OS" == "Darwin" ]]; then
 
         echo "Starting lazydocker for: $context ($docker_host)"
 
-        if [ "$context" = "desktop-linux" ]; then
-            docker rm -f lazydocker 2>/dev/null || true
-        else
-            docker rm -f "lazydocker-$context" 2>/dev/null || true
-        fi
+        # несколько окон на один хост: имя уникально per-терминал (PID шелла);
+        # прибираем только ОСТАНОВЛЕННЫЕ lzd-контейнеры (после крэшей без --rm-уборки),
+        # запущенные экземпляры в других терминалах не трогаем
+        docker container prune -f --filter "label=lzd.instance" >/dev/null 2>&1 || true
 
         local is_remote=false
         [[ "$docker_host" == ssh://* ]] && is_remote=true
@@ -161,12 +160,12 @@ if [[ "$OS" == "Darwin" ]]; then
             fi
         fi
 
-        local container_name
-        [ "$context" = "desktop-linux" ] && container_name="lazydocker" || container_name="lazydocker-$context"
+        local container_name="lazydocker-${context}-$$"
 
         local docker_args=(
             --rm -it
             --name "$container_name"
+            --label "lzd.instance=true"
             --label "com.centurylinklabs.watchtower.enable=false"
             # CONFIG_DIR: lazydocker в scratch-образе без HOME не видит XDG-пути,
             # поэтому монтируем в /config и указываем его явно (app_config.go:528)
@@ -212,10 +211,14 @@ if [[ "$OS" == "Darwin" ]]; then
         local docker_host
         docker_host=$(docker context inspect "$context" --format '{{.Endpoints.docker.Host}}')
         echo "Starting lazydocker (patched) for: $context ($docker_host)"
-        docker rm -f "lazydocker-patched-$context" 2>/dev/null || true
+        # несколько окон на один хост: имя уникально per-терминал (PID шелла);
+        # прибираем только остановленные lzd-контейнеры, живые экземпляры не трогаем
+        docker container prune -f --filter "label=lzd.instance" >/dev/null 2>&1 || true
+        local container_name="lazydocker-patched-${context}-$$"
         local docker_args=(
             --rm -it
-            --name "lazydocker-patched-$context"
+            --name "$container_name"
+            --label "lzd.instance=true"
             --label "com.centurylinklabs.watchtower.enable=false"
             -v "$HOME/code/config/lazydocker:/config"
             -e CONFIG_DIR=/config
