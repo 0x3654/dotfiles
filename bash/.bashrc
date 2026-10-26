@@ -160,7 +160,9 @@ if [[ "$OS" == "Darwin" ]]; then
             fi
         fi
 
-        local container_name="lazydocker-${context}-$$"
+        local host="$context"
+        [ "$context" = "desktop-linux" ] && host="moro"   # локальный докер мака = moro
+        local container_name="lzd-${host}-$$"
 
         local docker_args=(
             --rm -it
@@ -214,7 +216,9 @@ if [[ "$OS" == "Darwin" ]]; then
         # несколько окон на один хост: имя уникально per-терминал (PID шелла);
         # прибираем только остановленные lzd-контейнеры, живые экземпляры не трогаем
         docker container prune -f --filter "label=lzd.instance" >/dev/null 2>&1 || true
-        local container_name="lazydocker-patched-${context}-$$"
+        local host="$context"
+        [ "$context" = "desktop-linux" ] && host="moro"   # локальный докер мака = moro
+        local container_name="lzdp-${host}-$$"
         local docker_args=(
             --rm -it
             --name "$container_name"

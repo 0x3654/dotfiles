@@ -95,7 +95,6 @@
     "parallels-desktop.prlctl.path": "/usr/local/bin/prlctl",
     "parallels-desktop.git.path": "/opt/homebrew/bin/git",
     "parallels-desktop.devops-service.path": "/Users/m/.parallels-desktop-vscode/tools/prldevops",
-    "workbench.editor.editorActionsLocation": "titleBar",
     "excalidraw.theme": "auto"
 ,
 "zaiCursorLimit.apiKey": "4dae48fcfdd54e6eb3e000b02803b025.bF09YLw2Rfav8f2T",
@@ -115,5 +114,7 @@
 "markdown-preview-enhanced.codeBlockTheme": "auto.css",
 "markdown-preview-enhanced.previewTheme": "vscode.css",
 "markdown-preview-enhanced.alwaysShowBacklinksInPreview": true,
-"markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true
+"markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
+"containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+"containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose"
 }
