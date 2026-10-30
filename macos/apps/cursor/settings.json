@@ -116,5 +116,6 @@
 "markdown-preview-enhanced.alwaysShowBacklinksInPreview": true,
 "markdown-preview-enhanced.automaticallyShowPreviewOfMarkdownBeingEdited": true,
 "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
-"containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose"
+"containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+"cursor.composer.codeBlockWordWrap": true
 }
