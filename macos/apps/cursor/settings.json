@@ -119,5 +119,5 @@
 "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
 "cursor.composer.codeBlockWordWrap": true,
   "extensions.autoUpdate": false,
-  "extensions.autoCheckUpdates": false
+"extensions.autoCheckUpdates": false
 }
